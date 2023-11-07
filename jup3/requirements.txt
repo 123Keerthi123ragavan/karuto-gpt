@@ -1,0 +1,16 @@
+langchain
+PyPDF2
+python-dotenv
+streamlit
+faiss-cpu
+streamlit-extras
+dotenv
+pickle
+RecursiveCharacterTextSplitter
+text_splitter
+llms
+chains
+question_answering
+os
+callbacks
+OpenAIEmbeddings
