@@ -9,21 +9,14 @@ from langchain.llms import OpenAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.callbacks import get_openai_callback
 import os
-import sqlite3
 
 load_dotenv()
 
-# Create a SQLite database to store queries
-conn = sqlite3.connect('queries.db')
-cursor = conn.cursor()
-cursor.execute('CREATE TABLE IF NOT EXISTS queries (query TEXT)')
-conn.commit()
-
 def main():
-    st.header("Karotu G.P.T")
+    st.header("Karotu G.P.T ")
 
     # Read the static PDF file from the backend data
-    pdf_path = "Cycling.pdf"
+    pdf_path = "fintech.pdf"
     pdf_reader = PdfReader(pdf_path)
     text = ""
     for page in pdf_reader.pages:
@@ -50,16 +43,11 @@ def main():
     query = st.text_input("Ask questions about your PDF file:")
 
     if query:
-        # Store the query in the database
-        cursor.execute("INSERT INTO queries (query) VALUES (?)", (query,))
-        conn.commit()
-
         docs = VectorStore.similarity_search(query=query, k=3)
         llm = OpenAI()
         chain = load_qa_chain(llm=llm, chain_type="stuff")
         with get_openai_callback() as cb:
             response = chain.run(input_documents=docs, question=query)
-
         st.write(response)
 
 if __name__ == '__main__':
