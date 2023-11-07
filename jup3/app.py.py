@@ -16,7 +16,7 @@ def main():
     st.header("Karotu G.P.T ")
 
     # Read the static PDF file from the backend data
-    pdf_path = "fintech.pdf"
+    pdf_path = "jup3/Seya New Site Content.pdf"
     pdf_reader = PdfReader(pdf_path)
     text = ""
     for page in pdf_reader.pages:
